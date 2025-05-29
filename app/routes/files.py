@@ -26,7 +26,8 @@ def list_client_files(current_user = Depends(get_current_user)):
             "id": file_id_str,
             "filename": file_doc["original_filename"],
             "uploaded_at": file_doc.get("uploaded_at"),
-            "download_url": download_token
+            "download_token": download_token,
+            "download_url": f"https://ezworksassignment.onrender.com/client/files/download?token={download_token}"
         })
     return response
 

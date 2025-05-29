@@ -33,7 +33,7 @@ def client_signup(user: UserSignup):
     })
 
     token = create_email_verification_token(user.email)
-    verification_link = f"http://localhost:8000/verify-email?token={token}"
+    verification_link = f"https://ezworksassignment.onrender.com/verify-email?token={token}"
 
     return {
         "message": "Signup successful. Please verify your email.",

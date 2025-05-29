@@ -1,4 +1,3 @@
-# app/main.py
 from fastapi import FastAPI
 from app.db import connect_db
 from app.routes import auth, upload, files
@@ -13,6 +12,6 @@ connect_db()
 
 @app.get("/")
 def home():
-    return {"message": "Secure File Sharing API Running 🚀"}
+    return {"message": "EZ Works Assignment by Saksham Jain"}
 
 

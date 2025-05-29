@@ -1,6 +1,8 @@
-import os
 from datetime import datetime, timedelta
-from jose import jwt
+from fastapi import Depends, HTTPException
+from fastapi.security import OAuth2PasswordBearer
+from jose import jwt, JWTError
+import os
 
 SECRET_KEY = os.getenv("SECRET_KEY")
 ALGORITHM = "HS256"
@@ -13,15 +15,20 @@ def create_access_token(data: dict, expires_delta: timedelta = None):
     encoded_jwt = jwt.encode(to_encode, SECRET_KEY, algorithm=ALGORITHM)
     return encoded_jwt
 
-# app/utils/jwt.py (example)
-from fastapi import Depends, HTTPException
-from fastapi.security import OAuth2PasswordBearer
-from jose import jwt, JWTError
-import os
+
+def create_email_verification_token(email: str, expires_delta: timedelta = timedelta(hours=1)):
+    to_encode = {
+        "sub": email,
+        "exp": datetime.utcnow() + expires_delta,
+        "purpose": "email_verification"
+    }
+    return jwt.encode(to_encode, SECRET_KEY, algorithm=ALGORITHM)
+
+def decode_token(token: str):
+    return jwt.decode(token, SECRET_KEY, algorithms=[ALGORITHM])
 
 oauth2_scheme = OAuth2PasswordBearer(tokenUrl="token")
-SECRET_KEY = os.getenv("SECRET_KEY")
-ALGORITHM = "HS256"
+
 
 def get_current_user(token: str = Depends(oauth2_scheme)):
     try:

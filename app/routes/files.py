@@ -21,12 +21,12 @@ def list_client_files(current_user = Depends(get_current_user)):
     for file_doc in files_cursor:
         file_id_str = str(file_doc["_id"])
         token = create_file_download_token(current_user.get("sub"), file_id_str)
-        download_url = f"/client/files/download?token={token}"
+        download_token = token
         response.append({
             "id": file_id_str,
             "filename": file_doc["original_filename"],
             "uploaded_at": file_doc.get("uploaded_at"),
-            "download_url": download_url
+            "download_url": download_token
         })
     return response
 

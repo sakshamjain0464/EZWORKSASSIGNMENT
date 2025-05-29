@@ -3,7 +3,7 @@ from fastapi.security import HTTPBearer, HTTPAuthorizationCredentials
 from jose import jwt, JWTError
 import os
 
-security = HTTPBearer()  # enables the Swagger Authorize button
+security = HTTPBearer()  
 
 SECRET_KEY = os.getenv("SECRET_KEY")
 ALGORITHM = "HS256"

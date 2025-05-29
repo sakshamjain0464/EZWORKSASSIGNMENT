@@ -10,6 +10,6 @@ db = db = client["ezworks"]
 def connect_db():
     try:
         client.admin.command('ping')
-        print("✅ MongoDB Atlas connected")
+        print("MongoDB Atlas connected")
     except Exception as e:
-        print(f"❌ MongoDB connection failed: {e}")
+        print(f"MongoDB connection failed: {e}")
